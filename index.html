@@ -515,7 +515,7 @@
                 <div class="panel-icon">🔒</div>
                 <div>
                     <div class="panel-title">Encrypt File</div>
-                    <div class="panel-desc">// POST /api/encrypt</div>
+                    <div class="panel-desc">You can encrypt file here.</div>
                 </div>
             </div>
 
@@ -561,7 +561,7 @@
                 <div class="panel-icon">🔓</div>
                 <div>
                     <div class="panel-title">Decrypt File</div>
-                    <div class="panel-desc">// POST /api/decrypt</div>
+                    <div class="panel-desc">You can decrypt file here.</div>
                 </div>
             </div>
 
@@ -601,7 +601,7 @@
 
     </div>
 
-    <footer>// change BASE_URL in script to match your API server</footer>
+    <footer>// SoKmean's System to Test Api Encryption.@2026</footer>
 
     <script>
         // ─── CONFIG ────────────────────────────────────────────────────────
@@ -730,45 +730,6 @@
             } finally {
                 setLoading('enc', false);
             }
-            // setLoading('enc', true);
-            // var validation = ""
-            // try {
-            //     const res = await fetch(ENCRYPT_ENDPOINT, { method: 'POST', body: formData });
-            //     if (!res.ok) throw new Error(`Server responded with ${res.status}`);
-            //     const data = await res.json();
-            //     // if (data.status.errorCode == 3) {
-            //     validation = data.status.errorMessage
-            //     // }
-            //     // Show encrypted key
-            //     document.getElementById('encKey').textContent = data.encryptedKey || '';
-
-            //     // Set download button — fetches the file URL and triggers browser download
-            //     const fileUrl = data.encryptedFile_link || '';
-
-            //     const dlBtn = document.getElementById('encDownloadLink');
-            //     dlBtn.href = '#';
-            //     dlBtn.onclick = async (e) => {
-            //         e.preventDefault();
-            //         try {
-            //             const fileRes = await fetch(fileUrl);
-            //             const blob = await fileRes.blob();
-            //             const blobUrl = URL.createObjectURL(blob);
-            //             const a = document.createElement('a');
-            //             a.href = blobUrl;
-            //             a.download = fileUrl.split('/').pop();
-            //             a.click();
-            //             URL.revokeObjectURL(blobUrl);
-            //         } catch {
-            //             showError('enc', 'Failed to download encrypted file.');
-            //         }
-            //     };
-
-
-            // } catch (err) {
-            //     showError('enc', validation || 'Request failed. Check API URL and CORS settings.');
-            // } finally {
-            //     setLoading('enc', false);
-            // }
         }
 
         // ─── DECRYPT ───────────────────────────────────────────────────────
