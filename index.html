@@ -430,7 +430,9 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
-            align-items: center;
+            /* align-items: center; */
+            justify-content: center;
+
             gap: 6px;
             transition: all 0.2s;
         }
@@ -564,7 +566,8 @@
                 <div class="result-row">
                     <div class="result-label">Encrypt Key</div>
                     <div class="result-value" id="encKey"></div>
-                    <button class="copy-btn" onclick="copyText('encKey')">Copy Key</button>
+                    <button class="copy-btn" id="copyBtn" title="Copy encrypted_key" onclick="copyText('encKey')">Copy
+                        Key</button>
                 </div>
             </div>
         </div>
@@ -620,6 +623,7 @@
     <footer>// Sokmean's System to Test Api Encryption.@2026</footer>
 
     <script>
+
         // ─── CONFIG ────────────────────────────────────────────────────────
         const BASE_URL = 'http://127.0.0.1:8988';
         const ENCRYPT_ENDPOINT = `${BASE_URL}/api/file-encryption/encrypt`;
@@ -658,7 +662,7 @@
             if (loading) {
                 txt.innerHTML = '<div class="spinner"></div> Processing...';
             } else {
-                txt.innerHTML = prefix === 'enc' ? '🔒 Encrypt File' : '🔓 Decrypt File';
+                txt.innerHTML = prefix === 'enc' ? '🔒 Encrypt Files' : '🔓 Decrypt Files';
             }
         }
 
@@ -680,14 +684,37 @@
             document.getElementById(prefix + 'Result').classList.remove('visible');
         }
 
+        // function copyText(elId) {
+        //     const text = document.getElementById(elId).textContent;
+        //     navigator.clipboard.writeText(text).then(() => {
+        //         const btn = event.target;
+        //         btn.textContent = '✓ Copied!';
+        //         setTimeout(() => btn.textContent = 'Copy Key', 1500);
+        //     });
+        // }
+        // ------------------copied----------
         function copyText(elId) {
             const text = document.getElementById(elId).textContent;
+            // const copyStatus = document.getElementById('copyStatus');
+
+            // We use event.currentTarget to reliably get the button that was clicked
+            const btn = event.currentTarget;
+
             navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
+                // 1. Change button text temporarily
+                const originalText = btn.textContent;
                 btn.textContent = '✓ Copied!';
-                setTimeout(() => btn.textContent = 'Copy Key', 1500);
+
+                // 3. Reset everything after 2 seconds
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    // copyStatus.classList.replace('show', 'hidden');
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
             });
         }
+
 
         // ─── ENCRYPT ───────────────────────────────────────────────────────
         async function encryptFile() {
@@ -747,6 +774,7 @@
                 setLoading('enc', false);
             }
         }
+
 
         // ─── DECRYPT ───────────────────────────────────────────────────────
         async function decryptFile() {
