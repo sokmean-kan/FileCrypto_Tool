@@ -739,8 +739,8 @@
                 const data = await res.json();
 
                 // Check for API-level validation error
-                if (!res.ok || (data.status && data.status.errorCode !== 0)) {
-                    showError('enc', data.status?.errorMessage || `Request failed with status ${res.status}`);
+                if (!res.ok || (data.errorCode !== 0)) {
+                    showError('enc', data?.errorMessage || `Request failed with status ${res.errorCode}`);
                     return;
                 }
 
